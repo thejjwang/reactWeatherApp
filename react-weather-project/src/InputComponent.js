@@ -1,6 +1,7 @@
 import React from "react";
 import ButtonComponent from "./ButtonComponent";
 import { useState } from "react";
+import Display from "./Display";
 
 const InputComponent = (props) => {
     const [zipCode, setZipCode] = useState('');
@@ -10,7 +11,7 @@ const InputComponent = (props) => {
         try {
             const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=66f6758d2dce44048d8180824232206&q=${zipCode}&aqi=no`)
             const data = await response.json();
-            console.log(data.location.name);
+            console.log(data);
             setWeatherData(data);
         } catch (error) {
             console.log(error);
@@ -29,10 +30,7 @@ const InputComponent = (props) => {
         <>
             <input value={zipCode} onChange={handleChange}></input>
             <ButtonComponent onClick={() => fetchWeather(zipCode)}/>
-            <p>City:    </p>
-            <p>State: </p>
-            <p>Temperature: °F</p>
-            <p>Current Condition: </p>
+            <Display weatherData={weatherData}/>
         </>
     )
 }
